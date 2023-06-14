@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    include: testdb
+
+  jpa:
+    defer-datasource-initialization: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: false
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.format_sql: true
+
+  sql:
+    init:
+      platform: MySQL
+      encoding: UTF-8
+      mode: always
+      data-locations: classpath:sql/data.sql
+
+  mvc:
+    path-match:
+      matching-strategy: ant_path_matcher
+
+
+logging:
+  level:
+    org.hibernate.sql: debug
+    org.hibernate.type: trace

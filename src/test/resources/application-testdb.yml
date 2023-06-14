@@ -1,0 +1,16 @@
+spring:
+  config:
+    import:
+      - optional:file:env/test-db.env[.properties]
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:${MYSQL_TEST_PORT}/${MYSQL_TEST_DATABASE}
+    username: ${MYSQL_TEST_USER}
+    password: ${MYSQL_TEST_PASSWORD}
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  profiles:
+    include: testdb

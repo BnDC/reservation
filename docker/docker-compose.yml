@@ -1,0 +1,52 @@
+version: '3'
+
+name: 'performance-reservation-service'
+
+services:
+  reservation-mysql:
+    container_name: reservation-db
+    image: mysql:8.0
+    env_file:
+      - ../env/db.env
+    ports:
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+    volumes:
+      - reservation-db:/var/lib/reservation/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command:
+      - "mysqld"
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+    restart: always
+
+  reservation-test-mysql:
+    container_name: reservation-test-db
+    image: mysql:8.0
+    env_file:
+      - ../env/test-db.env
+    ports:
+      - "${MYSQL_TEST_PORT}:${MYSQL_PORT}"
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_TEST_DATABASE}"
+      MYSQL_USER: "${MYSQL_TEST_USER}"
+      MYSQL_PASSWORD: "${MYSQL_TEST_PASSWORD}"
+    volumes:
+      - reservation-test-db:/var/lib/reservation-test/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command:
+      - "mysqld"
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+    restart: always
+
+volumes:
+  reservation-db:
+  reservation-test-db:
