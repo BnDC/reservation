@@ -10,5 +10,21 @@ spring:
     password: ${MYSQL_PASSWORD}
 
   jpa:
+    defer-datasource-initialization: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+    show-sql: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.format_sql: true
+
+  sql:
+    init:
+      mode: always
+      platform: mysql
+      schema-locations: classpath:sql/schema_new.sql, classpath:org/springframework/session/jdbc/schema-drop-mysql.sql, classpath:org/springframework/session/jdbc/schema-mysql.sql
+      data-locations: classpath:sql/data.sql
+      encoding: UTF-8

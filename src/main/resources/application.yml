@@ -1,17 +1,12 @@
 spring:
   profiles:
     include: db
-  jpa:
-    defer-datasource-initialization: true
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    generate-ddl: false
-    open-in-view: false
-    show-sql: false
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate.format_sql: true
+
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: never
+
   mvc:
     path-match:
       matching-strategy: ant_path_matcher
