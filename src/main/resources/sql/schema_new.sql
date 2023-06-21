@@ -2,6 +2,10 @@ drop table if exists business_information;
 drop table if exists member_role;
 drop table if exists member;
 drop table if exists role;
+drop table if exists seat;
+drop table if exists theater;
+drop table if exists multiplex;
+
 
 CREATE TABLE role
 (
@@ -38,6 +42,36 @@ CREATE TABLE business_information
     business_license varchar(10) NOT NULL,
     member_id        bigint      NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT unq_business_license_id UNIQUE (business_license),
+    CONSTRAINT unq_business_license UNIQUE (business_license),
     CONSTRAINT fk_member_id_for_business_information FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+CREATE TABLE multiplex
+(
+    id          bigint       NOT NULL AUTO_INCREMENT,
+    name        varchar(10)  NOT NULL,
+    opening_day timestamp(6) NOT NULL,
+    start_time  time NOT NULL,
+    end_time    time NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE theater
+(
+    id           bigint      NOT NULL AUTO_INCREMENT,
+    name         varchar(10) NOT NULL,
+    theater_type varchar(10) NOT NULL,
+    multiplex_id bigint(6)   NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_multiplex_id_for_theater FOREIGN KEY (multiplex_id) REFERENCES multiplex (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+CREATE TABLE seat
+(
+    id         bigint      NOT NULL AUTO_INCREMENT,
+    position   varchar(10) NOT NULL,
+    theater_id bigint      NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT unq_position UNIQUE (position),
+    CONSTRAINT fk_theater_id_for_seat FOREIGN KEY (theater_id) REFERENCES theater (id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
