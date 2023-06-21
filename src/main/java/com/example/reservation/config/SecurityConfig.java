@@ -38,7 +38,8 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity
 				.authorizeRequests()
-				.antMatchers("/api/**/business/**").hasRole("USER")
+				.antMatchers("/api/**/business/**").hasAuthority("USER")
+				.antMatchers("/api/**/theaters/**").hasAuthority("THEATER_BUSINESS")
 				.and()
 				.csrf().disable()
 				.headers().disable()
