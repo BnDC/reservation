@@ -45,4 +45,15 @@ public class Member implements Serializable {
 		this.email = email;
 		this.password = PasswordEncodeUtil.toEncodedPassword(password);
 	}
+
+	@Override
+	public String toString() {
+		return "Member{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", memberRoles=" + memberRoles +
+				'}';
+	}
 }

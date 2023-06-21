@@ -29,16 +29,15 @@ public class Role {
 	@Enumerated(value = STRING)
 	private RoleName roleName;
 
-	// @OneToMany(mappedBy = "group")
-	// private List<GroupPermission> permissions = new ArrayList<>();
-
 	public Role(RoleName roleName) {
 		this.roleName = roleName;
 	}
 
-	// public List<GrantedAuthority> getAuthorities() {
-	// 	return permissions.stream()
-	// 			.map(gp -> new SimpleGrantedAuthority(gp.getPermission().getName()))
-	// 			.collect(toList());
-	// }
+	@Override
+	public String toString() {
+		return "Role{" +
+				"id=" + id +
+				", roleName=" + roleName +
+				'}';
+	}
 }

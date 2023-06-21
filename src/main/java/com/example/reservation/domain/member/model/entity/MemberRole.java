@@ -38,4 +38,13 @@ public class MemberRole {
 		this.member = member;
 		this.role = role;
 	}
+
+	@Override
+	public String toString() {
+		return "MemberRole{" +
+				"id=" + id +
+				", member=" + "{" + "id" + member.getId() + "" + member.getName() + "}" +
+				", role=" + role +
+				'}';
+	}
 }
