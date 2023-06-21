@@ -82,7 +82,7 @@ public class MemberService implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return memberRepository.findByEmail(username)
+		return memberRepository.findByEmailWithRole(username)
 				.map(member -> User.builder()
 						.username(member.getEmail())
 						.password(member.getPassword())
