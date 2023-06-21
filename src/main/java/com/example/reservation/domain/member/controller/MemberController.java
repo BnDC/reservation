@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.reservation.domain.member.model.BusinessSignupResponse;
+import com.example.reservation.domain.member.model.dto.BusinessSignupResponse;
 import com.example.reservation.domain.member.model.dto.BusinessSignupRequest;
 import com.example.reservation.domain.member.model.dto.MemberLoginRequest;
 import com.example.reservation.domain.member.model.dto.MemberSignupRequest;

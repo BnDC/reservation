@@ -1,5 +1,6 @@
 package com.example.reservation.domain.theater.model;
 
+import com.example.reservation.domain.theater.model.dto.SeatDto;
 import com.example.reservation.domain.theater.model.entity.Seat;
 
 public class SeatMapper {

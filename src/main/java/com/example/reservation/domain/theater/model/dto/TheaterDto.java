@@ -2,7 +2,6 @@ package com.example.reservation.domain.theater.model.dto;
 
 import java.util.List;
 
-import com.example.reservation.domain.theater.model.SeatDto;
 import com.example.reservation.domain.theater.model.entity.Multiplex;
 import com.example.reservation.domain.theater.model.type.TheaterType;
 

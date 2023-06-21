@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.reservation.domain.member.model.TheaterCreateResponse;
-import com.example.reservation.domain.theater.model.TheaterGetResponse;
+import com.example.reservation.domain.member.model.dto.TheaterCreateResponse;
+import com.example.reservation.domain.theater.model.dto.TheaterGetResponse;
 import com.example.reservation.domain.theater.model.dto.TheaterCreateRequest;
 import com.example.reservation.domain.theater.model.dto.TheaterDto;
 import com.example.reservation.domain.theater.service.TheaterService;

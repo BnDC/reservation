@@ -1,4 +1,4 @@
-package com.example.reservation.domain.theater.model;
+package com.example.reservation.domain.theater.model.dto;
 
 import lombok.Getter;
 import lombok.ToString;
