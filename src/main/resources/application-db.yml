@@ -14,7 +14,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
-    show-sql: false
+    show-sql: true
     generate-ddl: false
     hibernate:
       ddl-auto: none
