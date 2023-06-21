@@ -52,8 +52,8 @@ public class MemberService implements UserDetailsService {
 
 	@Transactional
 	public Long businessSignup(BusinessSignupRequest businessSignupRequest) {
-		Member member = memberRepository.findByEmail(getUsername())
-				.orElseThrow(EntityNotFoundException::new);
+		Member member = memberRepository.findByEmailWithRole(getUsername())
+				.orElseThrow(() -> new EntityNotFoundException("멤버를 찾을 수 없습니다."));
 
 		BusinessInformation businessInformation = businessInformationRepository.save(
 				BusinessInformationMapper.toBusinessInformation(businessSignupRequest, member)
