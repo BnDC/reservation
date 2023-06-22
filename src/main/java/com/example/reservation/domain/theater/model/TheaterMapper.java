@@ -1,5 +1,7 @@
 package com.example.reservation.domain.theater.model;
 
+import static com.example.reservation.domain.movie.model.MultiplexMapper.*;
+
 import java.util.stream.Collectors;
 
 import com.example.reservation.domain.theater.model.dto.TheaterCreateRequest;
@@ -13,6 +15,15 @@ public class TheaterMapper {
 				theaterCreateRequest.getName(),
 				theaterCreateRequest.getTheaterType(),
 				multiPlex
+		);
+	}
+
+	public static Theater toTheater(TheaterDto theaterDto) {
+		return new Theater(
+				theaterDto.getId(),
+				theaterDto.getName(),
+				theaterDto.getTheaterType(),
+				toMultiplex(theaterDto.getMultiplexDto())
 		);
 	}
 

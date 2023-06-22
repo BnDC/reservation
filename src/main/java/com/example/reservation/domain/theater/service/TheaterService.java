@@ -46,7 +46,7 @@ public class TheaterService {
 	@Transactional
 	public TheaterDto getTheater(Long theaterId) {
 		Theater theater = theaterRepository.findTheaterByIdWithProperties(theaterId)
-				.orElseThrow(() -> new EntityNotFoundException("존재하지 않는 영화입니다"));
+				.orElseThrow(() -> new EntityNotFoundException("존재하지 않는 영화관입니다"));
 		return TheaterMapper.toTheaterDto(theater);
 	}
 }

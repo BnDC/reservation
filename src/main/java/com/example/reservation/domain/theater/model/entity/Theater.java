@@ -45,6 +45,13 @@ public class Theater {
 	@OneToMany(mappedBy = "theater")
 	private List<Seat> seats = new ArrayList<>();
 
+	public Theater(Long id, String name, TheaterType theaterType, Multiplex multiplex) {
+		this.id = id;
+		this.name = name;
+		this.theaterType = theaterType;
+		this.multiplex = multiplex;
+	}
+
 	public Theater(String name, TheaterType theaterType, Multiplex multiplex) {
 		this.name = name;
 		this.theaterType = theaterType;

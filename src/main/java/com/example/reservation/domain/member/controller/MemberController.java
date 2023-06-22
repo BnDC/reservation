@@ -1,28 +1,34 @@
 package com.example.reservation.domain.member.controller;
 
 import static org.springframework.http.HttpStatus.*;
+import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.*;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.reservation.domain.member.model.dto.BusinessSignupResponse;
 import com.example.reservation.domain.member.model.dto.BusinessSignupRequest;
+import com.example.reservation.domain.member.model.dto.BusinessSignupResponse;
 import com.example.reservation.domain.member.model.dto.MemberLoginRequest;
 import com.example.reservation.domain.member.model.dto.MemberSignupRequest;
 import com.example.reservation.domain.member.model.dto.MemberSignupResponse;
+import com.example.reservation.domain.member.model.entity.Member;
+import com.example.reservation.domain.member.model.entity.MemberRole;
+import com.example.reservation.domain.member.repository.MemberRepository;
 import com.example.reservation.domain.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -40,7 +46,7 @@ public class MemberController {
 			@Validated @RequestBody MemberSignupRequest memberSignupRequest
 	) {
 		Long memberId = memberService.memberSignup(memberSignupRequest);
-		return new ResponseEntity<>(new MemberSignupResponse(memberId), HttpStatus.CREATED);
+		return new ResponseEntity<>(new MemberSignupResponse(memberId), CREATED);
 	}
 
 	@PostMapping("/business/signup")
@@ -70,7 +76,7 @@ public class MemberController {
 		context.setAuthentication(authenticationToken);
 
 		HttpSession session = request.getSession();
-		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
+		session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, context);
 
 		log.info("[memberController.login] session = {}", session.getId());
 		log.info("[memberController.login] session attributes = {}", session.getAttributeNames());

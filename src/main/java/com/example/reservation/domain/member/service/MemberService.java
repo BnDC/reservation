@@ -82,6 +82,14 @@ public class MemberService implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		// Member memberTest = memberRepository.findByEmailWithRole(username)
+		// 		.orElseThrow(() -> new EntityNotFoundException("???"));
+		Member memberTest = memberRepository.findByEmail(username)
+				.orElseThrow(() -> new EntityNotFoundException("???"));
+
+		System.out.println("memberTest, " + memberTest);
+
 		return memberRepository.findByEmailWithRole(username)
 				.map(member -> User.builder()
 						.username(member.getEmail())

@@ -9,6 +9,8 @@ import com.example.reservation.domain.member.model.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-	@Query(value = "select m from Member m join fetch m.memberRoles where m.email = :email ")
+	@Query(value = "select m from Member m join fetch m.memberRoles where m.email = :email")
 	Optional<Member> findByEmailWithRole(String email);
+
+	Optional<Member> findByEmail(String email);
 }

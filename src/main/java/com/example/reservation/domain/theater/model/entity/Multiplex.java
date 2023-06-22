@@ -36,6 +36,16 @@ public class Multiplex {
 	@Column(name = "end_time")
 	private LocalTime endTime;
 
+	public Multiplex(
+			Long id, String name, LocalDate openingDay, LocalTime startTime, LocalTime endTime
+	) {
+		this.id = id;
+		this.name = name;
+		this.openingDay = openingDay;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+
 	@Override
 	public String toString() {
 		return "Multiplex{" +
