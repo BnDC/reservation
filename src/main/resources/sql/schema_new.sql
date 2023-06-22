@@ -1,10 +1,14 @@
+drop table if exists schedule;
+drop table if exists movie;
+
+drop table if exists seat;
+drop table if exists theater;
+drop table if exists multiplex;
+
 drop table if exists business_information;
 drop table if exists member_role;
 drop table if exists member;
 drop table if exists role;
-drop table if exists seat;
-drop table if exists theater;
-drop table if exists multiplex;
 
 
 CREATE TABLE role
@@ -46,13 +50,14 @@ CREATE TABLE business_information
     CONSTRAINT fk_member_id_for_business_information FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
+-- theaters
 CREATE TABLE multiplex
 (
     id          bigint       NOT NULL AUTO_INCREMENT,
     name        varchar(10)  NOT NULL,
     opening_day timestamp(6) NOT NULL,
-    start_time  time NOT NULL,
-    end_time    time NOT NULL,
+    start_time  time         NOT NULL,
+    end_time    time         NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -74,4 +79,29 @@ CREATE TABLE seat
     PRIMARY KEY (id),
     CONSTRAINT unq_position UNIQUE (position),
     CONSTRAINT fk_theater_id_for_seat FOREIGN KEY (theater_id) REFERENCES theater (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+-- movies
+CREATE TABLE movie
+(
+    id             bigint      NOT NULL AUTO_INCREMENT,
+    title          varchar(20) NOT NULL,
+    director       varchar(10) NOT NULL,
+    original_price varchar(10) NOT NULL,
+    release_date   varchar(10) NOT NULL,
+    age_rating     varchar(10) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE schedule
+(
+    id         bigint       NOT NULL AUTO_INCREMENT,
+    price      int          NOT NULL,
+    start_time timestamp(6) NOT NULL,
+    end_time   timestamp(6) NOT NULL,
+    theater_id bigint       NOT NULL,
+    movie_id   bigint       NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_theater_id_for_schedule FOREIGN KEY (theater_id) REFERENCES theater (id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT fk_movie_id_for_schedule FOREIGN KEY (movie_id) REFERENCES movie (id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
