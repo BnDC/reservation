@@ -1,5 +1,7 @@
 package com.example.reservation.config;
 
+import static org.springframework.http.HttpMethod.*;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,7 +41,8 @@ public class SecurityConfig {
 		return httpSecurity
 				.authorizeRequests()
 				.antMatchers("/api/**/business/**").hasAuthority("USER")
-				.antMatchers("/api/**/theaters/**").hasAuthority("THEATER_BUSINESS")
+				.antMatchers(POST, "/api/**/theaters/**").hasAuthority("THEATER_BUSINESS")
+				.antMatchers(POST, "/api/**/movies/**", "/api/**/schedules/**").hasAuthority("PERFORMANCE_BUSINESS")
 				.and()
 				.csrf().disable()
 				.headers().disable()
