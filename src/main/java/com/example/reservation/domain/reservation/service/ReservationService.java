@@ -16,6 +16,7 @@ import com.example.reservation.domain.reservation.model.Reservation;
 import com.example.reservation.domain.reservation.model.ReservationCreateRequest;
 import com.example.reservation.domain.reservation.model.ReservationDto;
 import com.example.reservation.domain.reservation.model.ReservationItem;
+import com.example.reservation.domain.reservation.model.ReservationItemCreateRequest;
 import com.example.reservation.domain.reservation.repository.ReservationItemRepository;
 import com.example.reservation.domain.reservation.repository.ReservationRepository;
 
@@ -32,6 +33,12 @@ public class ReservationService {
 	@Transactional
 	public Long createReservation(ReservationCreateRequest reservationCreateRequest) {
 		Reservation savedReservation = reservationRepository.save(new Reservation(AuthenticationUtil.getLoginMemberId()));
+
+		List<Long> ticketIds = reservationCreateRequest.getReservationItemCreateRequests()
+				.stream()
+				.map(ReservationItemCreateRequest::getTicketId)
+				.collect(toList());
+		ticketService.getTicketsWithLock(ticketIds);
 
 		List<ReservationItem> reservationItems =
 				reservationCreateRequest.getReservationItemCreateRequests()

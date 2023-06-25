@@ -42,6 +42,21 @@ public class TicketService {
 	}
 
 	@Transactional
+	public List<TicketDto> getTicketsWithLock(List<Long> ids) {
+		List<TicketDto> ticketDtos = ticketRepository.findAllById(ids)
+				.stream()
+				.map(TicketMapper::toTicketDto)
+				.collect(toList());
+
+		for (TicketDto ticketDto : ticketDtos) {
+			if (ticketDto.isReserved()) {
+				throw new IllegalArgumentException("이미 예매된 티켓입니다.");
+			}
+		}
+		return ticketDtos;
+	}
+
+	@Transactional
 	public TicketDto updateTicket(Long ticketId) {
 		Ticket ticket = ticketRepository.findById(ticketId)
 				.orElseThrow(() -> new EntityNotFoundException("티켓이 존재하지 않습니다."));
