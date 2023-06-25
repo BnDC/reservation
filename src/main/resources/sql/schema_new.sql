@@ -1,3 +1,7 @@
+drop table if exists reservation_item;
+drop table if exists ticket;
+drop table if exists reservation;
+
 drop table if exists schedule;
 drop table if exists movie;
 
@@ -50,6 +54,7 @@ CREATE TABLE business_information
     CONSTRAINT fk_member_id_for_business_information FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
+
 -- theaters
 CREATE TABLE multiplex
 (
@@ -81,6 +86,7 @@ CREATE TABLE seat
     CONSTRAINT fk_theater_id_for_seat FOREIGN KEY (theater_id) REFERENCES theater (id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
+
 -- movies
 CREATE TABLE movie
 (
@@ -104,4 +110,37 @@ CREATE TABLE schedule
     PRIMARY KEY (id),
     CONSTRAINT fk_theater_id_for_schedule FOREIGN KEY (theater_id) REFERENCES theater (id) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_movie_id_for_schedule FOREIGN KEY (movie_id) REFERENCES movie (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+
+-- tickets
+CREATE TABLE ticket
+(
+    id          bigint NOT NULL AUTO_INCREMENT,
+    is_reserved bool   NOT NULL,
+    schedule_id bigint NOT NULL,
+    seat_id     bigint NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_schedule_id_for_ticket FOREIGN KEY (schedule_id) REFERENCES theater (id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT fk_seat_id_for_ticket FOREIGN KEY (seat_id) REFERENCES seat (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+CREATE TABLE reservation
+(
+    id          bigint NOT NULL AUTO_INCREMENT,
+    total_price int    NOT NULL,
+    member_id   bigint NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE reservation_item
+(
+    id             bigint      NOT NULL AUTO_INCREMENT,
+    reservation_id bigint      NOT NULL,
+    ticket_type    varchar(20) NOT NULL,
+    price          int         NOT NULL,
+    ticket_id      bigint      NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_reservation_id_for_reservation_item FOREIGN KEY (reservation_id) REFERENCES reservation (id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT fk_ticket_id_for_reservation_item FOREIGN KEY (ticket_id) REFERENCES ticket (id) ON DELETE RESTRICT ON UPDATE RESTRICT
 );

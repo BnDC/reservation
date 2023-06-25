@@ -10,6 +10,15 @@ import com.example.reservation.domain.movie.model.entity.Schedule;
 import com.example.reservation.domain.theater.model.entity.Theater;
 
 public class ScheduleMapper {
+	public static Schedule toSchedule(ScheduleDto scheduleDto) {
+		return new Schedule(
+				toTheaterNoSeats(scheduleDto.getTheaterDto()),
+				toMovie(scheduleDto.getMovieDto()),
+				scheduleDto.getStartTime(),
+				scheduleDto.getEndTime()
+		);
+	}
+
 	public static Schedule toSchedule(Theater theater, Movie movie, ScheduleCreateRequest scheduleCreateRequest) {
 		return new Schedule(
 				theater,
@@ -25,7 +34,7 @@ public class ScheduleMapper {
 				schedule.getPrice(),
 				schedule.getStartTime(),
 				schedule.getEndTime(),
-				toTheaterDto(schedule.getTheater()),
+				toTheaterDtoNoSeat(schedule.getTheater()),
 				toMovieDto(schedule.getMovie())
 		);
 	}
