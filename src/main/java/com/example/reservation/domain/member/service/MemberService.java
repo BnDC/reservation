@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.reservation.common.util.PasswordEncodeUtil;
 import com.example.reservation.domain.member.model.BusinessInformationMapper;
+import com.example.reservation.domain.member.model.CustomUserDetails;
 import com.example.reservation.domain.member.model.MemberMapper;
 import com.example.reservation.domain.member.model.dto.BusinessSignupRequest;
 import com.example.reservation.domain.member.model.dto.MemberLoginRequest;
@@ -82,26 +83,21 @@ public class MemberService implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-		// Member memberTest = memberRepository.findByEmailWithRole(username)
-		// 		.orElseThrow(() -> new EntityNotFoundException("???"));
-		Member memberTest = memberRepository.findByEmail(username)
-				.orElseThrow(() -> new EntityNotFoundException("???"));
-
-		System.out.println("memberTest, " + memberTest);
-
 		return memberRepository.findByEmailWithRole(username)
-				.map(member -> User.builder()
-						.username(member.getEmail())
-						.password(member.getPassword())
-						.authorities(member.getMemberRoles()
-								.stream()
-								.map(memberRole -> new SimpleGrantedAuthority(
-										memberRole.getRole()
-												.getRoleName()
-												.name()))
-								.collect(toList()))
-						.build())
+				.map(member ->
+						new CustomUserDetails(
+								member.getId(),
+								User.builder()
+										.username(member.getEmail())
+										.password(member.getPassword())
+										.authorities(member.getMemberRoles()
+												.stream()
+												.map(memberRole -> new SimpleGrantedAuthority(
+														memberRole.getRole()
+																.getRoleName()
+																.name()))
+												.collect(toList()))
+										.build()))
 				.orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다"));
 	}
 
