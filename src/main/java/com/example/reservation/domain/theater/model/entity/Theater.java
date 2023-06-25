@@ -45,17 +45,20 @@ public class Theater {
 	@OneToMany(mappedBy = "theater")
 	private List<Seat> seats = new ArrayList<>();
 
-	public Theater(Long id, String name, TheaterType theaterType, Multiplex multiplex) {
-		this.id = id;
+	public Theater(String name, TheaterType theaterType, Multiplex multiplex) {
 		this.name = name;
 		this.theaterType = theaterType;
 		this.multiplex = multiplex;
 	}
 
-	public Theater(String name, TheaterType theaterType, Multiplex multiplex) {
-		this.name = name;
-		this.theaterType = theaterType;
-		this.multiplex = multiplex;
+	public Theater(Long id, String name, TheaterType theaterType, Multiplex multiplex) {
+		this(name, theaterType, multiplex);
+		this.id = id;
+	}
+
+	public Theater(Long id, String name, TheaterType theaterType, Multiplex multiplex, List<Seat> seats) {
+		this(id, name, theaterType, multiplex);
+		this.seats = seats;
 	}
 
 	@Override

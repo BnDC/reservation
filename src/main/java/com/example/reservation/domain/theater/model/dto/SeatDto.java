@@ -6,11 +6,17 @@ import lombok.ToString;
 @Getter
 @ToString
 public class SeatDto {
+	private Long id;
 	String position;
-	String theaterName;
+	TheaterDto theaterDto;
 
-	public SeatDto(String position, String theaterName) {
+	public SeatDto(String position, TheaterDto theaterDto) {
 		this.position = position;
-		this.theaterName = theaterName;
+		this.theaterDto = theaterDto;
+	}
+
+	public SeatDto(Long id, String position, TheaterDto theaterDto) {
+		this(position, theaterDto);
+		this.id = id;
 	}
 }

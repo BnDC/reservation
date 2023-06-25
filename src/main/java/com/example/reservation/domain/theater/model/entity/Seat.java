@@ -36,12 +36,17 @@ public class Seat {
 		this.theater = theater;
 	}
 
+	public Seat(Long id, String position, Theater theater) {
+		this(position, theater);
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "Seat{" +
 				"id=" + id +
 				", position='" + position + '\'' +
-				", theater=" + "{ " + "id" + theater.getId() + "name" + theater.getName() + " }" +
+				", theater=" + "{ " + "id= " + theater.getId() + ", name= " + theater.getName() + " }" +
 				'}';
 	}
 }

@@ -21,7 +21,10 @@ import com.example.reservation.domain.movie.model.entity.Movie;
 import com.example.reservation.domain.movie.model.entity.Schedule;
 import com.example.reservation.domain.movie.repository.MovieRepository;
 import com.example.reservation.domain.movie.repository.ScheduleRepository;
+import com.example.reservation.domain.reservation.model.TicketCreateRequest;
+import com.example.reservation.domain.reservation.service.TicketService;
 import com.example.reservation.domain.theater.model.dto.TheaterDto;
+import com.example.reservation.domain.theater.model.entity.Theater;
 import com.example.reservation.domain.theater.service.TheaterService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,9 +32,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MovieService {
+	private final TicketService ticketService;
+	private final TheaterService theaterService;
+
 	private final MovieRepository movieRepository;
 	private final ScheduleRepository scheduleRepository;
-	private final TheaterService theaterService;
 
 	@Transactional
 	public Long createMovie(MovieCreateRequest movieCreateRequest) {
@@ -48,10 +53,18 @@ public class MovieService {
 	public Long createSchedule(ScheduleCreateRequest scheduleCreateRequest) {
 		Movie movie = getMovieEntity(scheduleCreateRequest.getMovieId());
 		TheaterDto theaterDto = theaterService.getTheater(scheduleCreateRequest.getTheaterId());
+		Theater theater = toTheater(theaterDto);
 
 		Schedule schedule = scheduleRepository.save(
-				toSchedule(toTheater(theaterDto), movie, scheduleCreateRequest)
+				toSchedule(theater, movie, scheduleCreateRequest)
 		);
+
+		List<TicketCreateRequest> ticketCreateRequests = theater.getSeats()
+				.stream()
+				.map(seat -> new TicketCreateRequest(schedule, seat))
+				.collect(toList());
+
+		ticketService.createTickets(ticketCreateRequests);
 		return schedule.getId();
 	}
 
