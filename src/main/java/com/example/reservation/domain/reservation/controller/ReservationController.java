@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.reservation.domain.reservation.model.ReservationCreateRequest;
-import com.example.reservation.domain.reservation.model.ReservationCreateResponse;
+import com.example.reservation.domain.reservation.model.dto.ReservationCreateRequest;
+import com.example.reservation.domain.reservation.model.dto.ReservationCreateResponse;
 import com.example.reservation.domain.reservation.service.ReservationService;
 
 import lombok.RequiredArgsConstructor;

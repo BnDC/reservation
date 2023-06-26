@@ -1,4 +1,4 @@
-package com.example.reservation.domain.reservation.model;
+package com.example.reservation.domain.reservation.model.entity;
 
 import static javax.persistence.EnumType.*;
 import static javax.persistence.FetchType.*;
@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.example.reservation.domain.reservation.model.type.TicketType;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

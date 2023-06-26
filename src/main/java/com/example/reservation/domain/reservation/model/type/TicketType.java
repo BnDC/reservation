@@ -1,4 +1,4 @@
-package com.example.reservation.domain.reservation.model;
+package com.example.reservation.domain.reservation.model.type;
 
 import lombok.Getter;
 

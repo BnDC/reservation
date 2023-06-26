@@ -21,7 +21,7 @@ import com.example.reservation.domain.movie.model.entity.Movie;
 import com.example.reservation.domain.movie.model.entity.Schedule;
 import com.example.reservation.domain.movie.repository.MovieRepository;
 import com.example.reservation.domain.movie.repository.ScheduleRepository;
-import com.example.reservation.domain.reservation.model.TicketCreateRequest;
+import com.example.reservation.domain.reservation.model.dto.TicketCreateRequest;
 import com.example.reservation.domain.reservation.service.TicketService;
 import com.example.reservation.domain.theater.model.dto.TheaterDto;
 import com.example.reservation.domain.theater.model.entity.Theater;

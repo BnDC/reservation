@@ -1,4 +1,4 @@
-package com.example.reservation.domain.reservation.model;
+package com.example.reservation.domain.reservation.model.entity;
 
 import static javax.persistence.FetchType.*;
 import static javax.persistence.GenerationType.*;

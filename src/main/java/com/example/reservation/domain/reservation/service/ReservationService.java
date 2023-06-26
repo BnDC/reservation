@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.reservation.common.util.AuthenticationUtil;
-import com.example.reservation.domain.reservation.model.Reservation;
-import com.example.reservation.domain.reservation.model.ReservationCreateRequest;
-import com.example.reservation.domain.reservation.model.ReservationDto;
-import com.example.reservation.domain.reservation.model.ReservationItem;
-import com.example.reservation.domain.reservation.model.ReservationItemCreateRequest;
+import com.example.reservation.domain.reservation.model.entity.Reservation;
+import com.example.reservation.domain.reservation.model.dto.ReservationCreateRequest;
+import com.example.reservation.domain.reservation.model.dto.ReservationDto;
+import com.example.reservation.domain.reservation.model.entity.ReservationItem;
+import com.example.reservation.domain.reservation.model.dto.ReservationItemCreateRequest;
 import com.example.reservation.domain.reservation.repository.ReservationItemRepository;
 import com.example.reservation.domain.reservation.repository.ReservationRepository;
 

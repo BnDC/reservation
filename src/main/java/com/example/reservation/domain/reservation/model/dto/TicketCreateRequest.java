@@ -1,4 +1,4 @@
-package com.example.reservation.domain.reservation.model;
+package com.example.reservation.domain.reservation.model.dto;
 
 import com.example.reservation.domain.movie.model.entity.Schedule;
 import com.example.reservation.domain.theater.model.entity.Seat;

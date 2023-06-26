@@ -1,4 +1,6 @@
-package com.example.reservation.domain.reservation.model;
+package com.example.reservation.domain.reservation.model.dto;
+
+import com.example.reservation.domain.reservation.model.type.TicketType;
 
 import lombok.Getter;
 

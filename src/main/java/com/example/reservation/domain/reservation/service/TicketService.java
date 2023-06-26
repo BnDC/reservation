@@ -10,9 +10,9 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.reservation.domain.reservation.model.Ticket;
-import com.example.reservation.domain.reservation.model.TicketCreateRequest;
-import com.example.reservation.domain.reservation.model.TicketDto;
+import com.example.reservation.domain.reservation.model.entity.Ticket;
+import com.example.reservation.domain.reservation.model.dto.TicketCreateRequest;
+import com.example.reservation.domain.reservation.model.dto.TicketDto;
 import com.example.reservation.domain.reservation.model.TicketMapper;
 import com.example.reservation.domain.reservation.repository.TicketRepository;
 

@@ -3,6 +3,9 @@ package com.example.reservation.domain.reservation.model;
 import static com.example.reservation.domain.movie.model.ScheduleMapper.*;
 import static com.example.reservation.domain.theater.model.SeatMapper.*;
 
+import com.example.reservation.domain.reservation.model.dto.TicketDto;
+import com.example.reservation.domain.reservation.model.entity.Ticket;
+
 public class TicketMapper {
 	public static Ticket toTicket(TicketDto ticketDto) {
 		return new Ticket(
