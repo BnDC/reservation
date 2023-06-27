@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.example.reservation.domain.theater.model.type.TheaterType;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.ToString;
 
+@ApiModel(description = "상영관 정보")
 @Getter
 @ToString
 public class TheaterDto {
