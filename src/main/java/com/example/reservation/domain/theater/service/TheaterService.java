@@ -50,9 +50,6 @@ public class TheaterService {
 		Theater theater = theaterRepository.findTheaterByIdWithProperties(theaterId)
 				.orElseThrow(() -> new EntityNotFoundException("존재하지 않는 영화관입니다"));
 
-		// TODO removed
-		log.info("theater = {}", theater);
-
 		return toTheaterDto(theater);
 	}
 }
