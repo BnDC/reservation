@@ -20,9 +20,14 @@ import com.example.reservation.domain.movie.model.dto.ScheduleCreateResponse;
 import com.example.reservation.domain.movie.model.dto.ScheduleGetAllResponse;
 import com.example.reservation.domain.movie.service.MovieService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@Api(tags = "영화 컨트롤러")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -30,6 +35,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MovieController {
 	private final MovieService movieService;
 
+	@Operation(summary = "영화 정보 생성", description = "영화 정보 생성을 위한 api")
+	@ApiResponse(code = 201, message = "created")
 	@PostMapping("/movies/new")
 	public ResponseEntity<MovieCreateResponse> createMovie(
 			@Validated @RequestBody MovieCreateRequest movieCreateRequest
@@ -38,12 +45,17 @@ public class MovieController {
 		return new ResponseEntity<>(new MovieCreateResponse(movieId), CREATED);
 	}
 
+	@Operation(summary = "영화 정보 단건 조회", description = "영화 정보 단건 조회를 위한 api")
+	@ApiResponse(code = 200, message = "ok")
 	@GetMapping("/movies/{movieId}")
-	public ResponseEntity<MovieGetResponse> getMovie(@PathVariable Long movieId) {
+	public ResponseEntity<MovieGetResponse> getMovie(
+			@ApiParam(value = "영화 정보 식별자", example = "1", required = true) @PathVariable Long movieId) {
 		MovieDto movie = movieService.getMovie(movieId);
 		return new ResponseEntity<>(new MovieGetResponse(movie), OK);
 	}
 
+	@Operation(summary = "영화 상영 시간표 생성", description = "영화 상영 시간표 생성을 위한 api")
+	@ApiResponse(code = 201, message = "created")
 	@PostMapping("/schedules/new")
 	public ResponseEntity<ScheduleCreateResponse> createSchedule(
 			@Validated @RequestBody ScheduleCreateRequest scheduleCreateRequest
@@ -52,6 +64,8 @@ public class MovieController {
 		return new ResponseEntity<>(new ScheduleCreateResponse(scheduleId), CREATED);
 	}
 
+	@Operation(summary = "영화 상영 시간표 조회", description = "영화 상영 시간표 조회를 위한 api")
+	@ApiResponse(code = 200, message = "ok")
 	@GetMapping("/schedules")
 	public ResponseEntity<ScheduleGetAllResponse> getAllSchedules() {
 		return new ResponseEntity<>(new ScheduleGetAllResponse(movieService.getAllSchedules()), OK);
