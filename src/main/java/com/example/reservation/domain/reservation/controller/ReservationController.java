@@ -13,8 +13,11 @@ import com.example.reservation.domain.reservation.model.dto.ReservationCreateReq
 import com.example.reservation.domain.reservation.model.dto.ReservationCreateResponse;
 import com.example.reservation.domain.reservation.service.ReservationService;
 
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 
+@Api(tags = "예약 컨트롤러")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
@@ -22,8 +25,9 @@ public class ReservationController {
 
 	private final ReservationService reservationService;
 
+	@Operation(summary = "예매 등록", description = "예매를 위한 api")
 	@PostMapping("/reservations/new")
-	public ResponseEntity<ReservationCreateResponse> test(
+	public ResponseEntity<ReservationCreateResponse> createReservation(
 			@Validated @RequestBody ReservationCreateRequest reservationCreateRequest
 	) {
 		Long reservationId = reservationService.createReservation(reservationCreateRequest);
