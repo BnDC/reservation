@@ -3,8 +3,6 @@ package com.example.reservation.domain.member.controller;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.*;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,9 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,14 +22,15 @@ import com.example.reservation.domain.member.model.dto.BusinessSignupResponse;
 import com.example.reservation.domain.member.model.dto.MemberLoginRequest;
 import com.example.reservation.domain.member.model.dto.MemberSignupRequest;
 import com.example.reservation.domain.member.model.dto.MemberSignupResponse;
-import com.example.reservation.domain.member.model.entity.Member;
-import com.example.reservation.domain.member.model.entity.MemberRole;
-import com.example.reservation.domain.member.repository.MemberRepository;
 import com.example.reservation.domain.member.service.MemberService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@Api(tags = "회원 컨트롤러")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +38,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	private final MemberService memberService;
 
+	@Operation(summary = "회원 생성", description = "회원 생성을 위한 api")
+	@ApiResponse(code = 201, message = "created")
 	@PostMapping("/members/signup")
 	public ResponseEntity<MemberSignupResponse> memberSignup(
 			@Validated @RequestBody MemberSignupRequest memberSignupRequest
@@ -49,6 +48,8 @@ public class MemberController {
 		return new ResponseEntity<>(new MemberSignupResponse(memberId), CREATED);
 	}
 
+	@Operation(summary = "사업자 등록", description = "사업자 등록을 위한 api")
+	@ApiResponse(code = 201, message = "created")
 	@PostMapping("/business/signup")
 	public ResponseEntity<BusinessSignupResponse> businessSignup(
 			HttpServletRequest request,
@@ -60,6 +61,8 @@ public class MemberController {
 		return new ResponseEntity<>(new BusinessSignupResponse(businessInformationId), OK);
 	}
 
+	@Operation(summary = "회원 로그인", description = "회원 로그인을 위한 api")
+	@ApiResponse(code = 200, message = "ok")
 	@PostMapping("/login")
 	public ResponseEntity<Void> login(
 			HttpServletRequest request,
