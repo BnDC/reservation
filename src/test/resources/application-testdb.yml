@@ -5,7 +5,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:${MYSQL_TEST_PORT}/${MYSQL_TEST_DATABASE}
+    url: jdbc:mysql://${TEST_HOST_NAME}:${MYSQL_TEST_PORT}/${MYSQL_TEST_DATABASE}
     username: ${MYSQL_TEST_USER}
     password: ${MYSQL_TEST_PASSWORD}
 
