@@ -27,10 +27,16 @@ Java 8, Spring Boot 2.7, MySQL 8.0
 
 # 엔티티 및 ERD 설계
 ## 엔티티
+<img width="433" alt="image" src="https://github.com/BnDC/reservation/assets/86050295/48a9cc89-b036-4de0-82c9-672d928bb6ed">
+
 <img width="1295" alt="image" src="https://github.com/BnDC/reservation/assets/86050295/b2136670-79c1-4088-a22c-0249bcfbf161">
 
 ## ERD
 <img width="1336" alt="image" src="https://github.com/BnDC/reservation/assets/86050295/e12ee6e8-7f58-4fc6-9e0f-845490bd78a2">
+
+<img width="546" alt="image" src="https://github.com/BnDC/reservation/assets/86050295/506048c1-b39a-4b4b-9ad0-d75455c6f024">
+
+<img width="440" alt="image" src="https://github.com/BnDC/reservation/assets/86050295/8747501f-0c1e-44df-9a76-4ac71c36b80a">
 
 
 
