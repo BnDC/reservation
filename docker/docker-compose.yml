@@ -19,6 +19,8 @@ services:
     volumes:
       - reservation-db:/var/lib/reservation/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - reservation_network
     command:
       - "mysqld"
       - "--character-set-server=utf8mb4"
@@ -41,12 +43,44 @@ services:
     volumes:
       - reservation-test-db:/var/lib/reservation-test/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - reservation_network
     command:
       - "mysqld"
       - "--character-set-server=utf8mb4"
       - "--collation-server=utf8mb4_unicode_ci"
     restart: always
 
+  app:
+    build:
+      context: ../
+      dockerfile: DockerFile
+    restart: always
+    env_file:
+      - ../env/total.env
+    depends_on:
+      - reservation-mysql
+      - reservation-test-mysql
+    ports:
+      - "8080:8080"
+    container_name: reservation_app
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+
+      MYSQL_TEST_DATABASE: "${MYSQL_TEST_DATABASE}"
+      MYSQL_TEST_USER: "${MYSQL_TEST_USER}"
+      MYSQL_TEST_PASSWORD: "${MYSQL_TEST_PASSWORD}"
+    networks:
+      - reservation_network
+
+
 volumes:
   reservation-db:
   reservation-test-db:
+  app:
+
+networks:
+  reservation_network:

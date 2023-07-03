@@ -11,10 +11,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 import org.springframework.session.jdbc.JdbcIndexedSessionRepository;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
+
+import com.example.reservation.common.exception.CustomAccessDeniedHandler;
+import com.example.reservation.common.exception.CustomAuthenticationEntryPoint;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,6 +40,16 @@ public class SecurityConfig {
 	@Bean
 	PasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	AuthenticationEntryPoint authenticationEntryPoint() {
+		return new CustomAuthenticationEntryPoint();
+	}
+
+	@Bean
+	AccessDeniedHandler accessDeniedHandler() {
+		return new CustomAccessDeniedHandler();
 	}
 
 	@Bean
@@ -68,6 +83,10 @@ public class SecurityConfig {
 				.maximumSessions(1)
 				.sessionRegistry(springSessionBackedSessionRegistry(jdbcIndexedSessionRepository))
 				.and()
+				.and()
+				.exceptionHandling()
+				.authenticationEntryPoint(authenticationEntryPoint())
+				.accessDeniedHandler(accessDeniedHandler())
 				.and()
 				.requestCache().requestCache(new NullRequestCache())
 				.and()
