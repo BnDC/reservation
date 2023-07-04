@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
 	private final JdbcIndexedSessionRepository jdbcIndexedSessionRepository;
 
 	@Bean
@@ -67,7 +66,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity
 				.authorizeRequests()
-				.antMatchers("/api/**/business/**").hasAuthority("USER")
+				.antMatchers("/api/**/business/**", "/api/**/reservations/**").hasAuthority("USER")
 				.antMatchers(POST, "/api/**/theaters/**").hasAuthority("THEATER_BUSINESS")
 				.antMatchers(POST, "/api/**/movies/**", "/api/**/schedules/**").hasAuthority("PERFORMANCE_BUSINESS")
 				.and()
