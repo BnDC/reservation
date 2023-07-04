@@ -19,7 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	@ExceptionHandler({BadCredentialsException.class, UsernameNotFoundException.class})
+	@ExceptionHandler({
+			BadCredentialsException.class,
+			UsernameNotFoundException.class,
+			InsufficientAuthenticationException.class
+	})
 	public ResponseEntity<ErrorResponse> unAuthorizedExceptionHandler(HttpServletRequest request, Exception e) {
 		printException(e);
 		return new ResponseEntity<>(
